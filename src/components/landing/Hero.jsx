@@ -52,7 +52,7 @@ export default function Hero() {
           <div className="relative max-w-4xl w-full">
             <Image
               src="/images/hero-image.png"   
-              alt="Bitrate Hero"
+              alt="bitrade Hero"
               width={1200}
               height={620}
               className="rounded-3xl shadow-2xl border border-gray-100"

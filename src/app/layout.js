@@ -3,7 +3,7 @@ import Footer from '@/components/common/Footer'
 import './globals.css'
 
 export const metadata = {
-  title: 'Bitrate - Build better workflows without the code',
+  title: 'bitrade - Build better workflows without the code',
   description: 'No-code AI automation platform for modern teams.',
 }
 

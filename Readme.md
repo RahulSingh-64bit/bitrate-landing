@@ -1,27 +1,18 @@
-# Bitrate – No-Code AI Automation Platform
+# bitrade – No-Code AI Automation Platform
 
-Bitrate is a modern no-code AI automation platform that enables teams to design workflows, automate repetitive processes, and scale operations efficiently — without writing code.
+bitrade is a modern no-code AI automation platform that enables teams to design workflows, automate repetitive processes, and scale operations efficiently — without writing code.
 
 It combines an intuitive visual builder with AI-powered automation to help organizations improve productivity, reduce manual effort, and accelerate execution.
 
 <p align="center">
-  <img src="public/full-page-preview.png" alt="Bitrate Platform Full Preview" width="100%" />
-</p>
-
-<p align="center">
-  <a href="#overview"><strong>Overview</strong></a> •
-  <a href="#features"><strong>Features</strong></a> •
-  <a href="#tech-stack"><strong>Tech Stack</strong></a> •
-  <a href="#installation"><strong>Installation</strong></a> •
-  <a href="#deployment"><strong>Deployment</strong></a> •
-  <a href="#license"><strong>License</strong></a>
+  <img src="public/full-page-preview.png" alt="bitrade Platform Full Preview" width="100%" />
 </p>
 
 ---
 
 ## Overview
 
-Bitrate simplifies automation for modern teams. Its visual workflow builder and AI-powered automation engine enable users to create scalable, production-ready workflows without engineering complexity.
+bitrade simplifies automation for modern teams. Its visual workflow builder and AI-powered automation engine enable users to create scalable, production-ready workflows without engineering complexity.
 
 The platform is optimized for performance, collaboration, and enterprise-grade reliability.
 

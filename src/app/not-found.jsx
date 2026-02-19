@@ -44,7 +44,7 @@ export default function NotFound() {
 
         {/* Tiny brand line */}
         <p className="text-xs text-muted-foreground/80 mt-10">
-          Bitrate — Building better workflows without the code
+          bitrade — Building better workflows without the code
         </p>
       </div>
     </div>
@@ -52,6 +52,6 @@ export default function NotFound() {
 }
 
 export const metadata = {
-  title: 'Coming Soon | Bitrate',
+  title: 'Coming Soon | bitrade',
   description: 'This section is under development — check back soon!',
 }

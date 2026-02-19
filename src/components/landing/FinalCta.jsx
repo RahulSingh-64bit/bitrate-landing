@@ -9,7 +9,7 @@ export default function FinalCta() {
 
         {/* Subtitle / Social proof */}
         <p className="text-xl md:text-2xl text-blue-100 max-w-3xl mx-auto mb-10 md:mb-12 leading-relaxed">
-          Join over 10,000+ companies that trust Bitrate to automate their daily operations.
+          Join over 10,000+ companies that trust bitrade to automate their daily operations.
           <br className="hidden sm:inline" /> Start your 14-day free trial today.
         </p>
 

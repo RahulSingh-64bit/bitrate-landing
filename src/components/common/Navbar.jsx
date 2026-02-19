@@ -99,14 +99,14 @@ export default function Navbar() {
         <a href="/" className="flex items-center gap-2.5 shrink-0">
           <Image
             src="/logo.svg"
-            alt="Bitrate"
+            alt="bitrade"
             width={32}
             height={32}
             className="h-8 w-auto"
             priority
           />
           <span className="font-semibold text-xl tracking-tight text-foreground hidden sm:inline">
-            Bitrate
+            bitrade
           </span>
         </a>
 
@@ -238,12 +238,12 @@ export default function Navbar() {
                 >
                   <Image
                     src="/logo.svg"
-                    alt="Bitrate"
+                    alt="bitrade"
                     width={28}
                     height={28}
                     className="h-7 w-auto"
                   />
-                  <span className="text-lg font-semibold">Bitrate</span>
+                  <span className="text-lg font-semibold">bitrade</span>
                 </a>
               </SheetTitle>
             </SheetHeader>

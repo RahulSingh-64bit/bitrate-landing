@@ -9,7 +9,7 @@ export default function Footer() {
           {/* Brand / Description column */}
           <div className="lg:col-span-1">
             <p className="text-gray-300 font-medium text-lg mb-4">
-              Bitrate
+              bitrade
             </p>
             <p className="text-sm leading-relaxed mb-6 max-w-xs">
               Empowering teams to build, automate, and scale their operations without writing a single line of code.
@@ -71,7 +71,7 @@ export default function Footer() {
         <div className="mt-16 pt-10 border-t border-gray-800">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-6 text-sm">
             <p>
-              © 2026 Bitrate Inc. All rights reserved.
+              © 2026 bitrade Inc. All rights reserved.
             </p>
             <div className="flex flex-wrap gap-x-6 gap-y-2">
               <a href="#" className="hover:text-gray-200 transition-colors">Terms of Service</a>
