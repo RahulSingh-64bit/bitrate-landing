@@ -5,11 +5,7 @@ bitrade is a modern no-code AI automation platform that enables teams to design 
 It combines an intuitive visual builder with AI-powered automation to help organizations improve productivity, reduce manual effort, and accelerate execution.
 
 <p align="center">
-<<<<<<< HEAD
-  <img src="public/full-page-preview.png" alt="bitrade Platform Full Preview" width="100%" />
-=======
   <img src="public/full-page-preview.png" alt="Bitrate Platform Full Preview" width="100%" />
->>>>>>> d2092b3e685c29f8768ba4085c0743f1b6fa27fd
 </p>
 
 ---
