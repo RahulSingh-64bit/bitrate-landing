@@ -36,6 +36,8 @@ const navLinks = [
     ],
   },
   { label: 'Pricing', href: '/pricing' },
+  
+  
   {
     label: 'Resources',
     hasDropdown: true,
@@ -46,6 +48,8 @@ const navLinks = [
       { name: 'Community', href: '/community' },
     ],
   },
+  { label: 'About Us', href: '/about' },
+  { label: 'Insights', href: '/insights' },
 ]
 
 export default function Navbar() {
@@ -105,9 +109,7 @@ export default function Navbar() {
             className="h-8 w-auto"
             priority
           />
-          <span className="font-semibold text-xl tracking-tight text-foreground hidden sm:inline">
-            bitrade
-          </span>
+          
         </a>
 
         {/* Desktop Navigation – hover only */}

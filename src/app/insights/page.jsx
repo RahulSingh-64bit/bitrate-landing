@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import {
   Search,
   Filter,
@@ -201,6 +201,19 @@ function CardImage({ src, alt, height = 190 }) {
 export default function InsightsPage() {
   const [activeCategory, setActiveCategory] = useState("All");
   const [searchQuery, setSearchQuery] = useState("");
+  const categoryRefs = useRef({});
+  const scrollContainerRef = useRef(null);
+
+  // Scroll active category into view when it changes
+  useEffect(() => {
+    if (activeCategory && categoryRefs.current[activeCategory]) {
+      categoryRefs.current[activeCategory].scrollIntoView({
+        behavior: "smooth",
+        block: "nearest",
+        inline: "center",
+      });
+    }
+  }, [activeCategory]);
 
   const filteredArticles = articles.filter((a) => {
     const matchCat = activeCategory === "All" || a.category === activeCategory;
@@ -220,18 +233,76 @@ export default function InsightsPage() {
         minHeight: "100vh",
       }}
     >
+      {/* Inject responsive styles */}
+      <style>{`
+        /* Base responsive adjustments */
+        .responsive-container {
+          width: 100%;
+          max-width: 1200px;
+          margin: 0 auto;
+          padding-left: clamp(1rem, 5vw, 4rem);
+          padding-right: clamp(1rem, 5vw, 4rem);
+        }
+
+        /* Tablet and below */
+        @media (max-width: 768px) {
+          h1 { font-size: clamp(2rem, 8vw, 3rem) !important; }
+          h2 { font-size: clamp(1.75rem, 6vw, 2.5rem) !important; }
+          
+          .featured-grid {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .featured-image {
+            height: 240px !important;
+          }
+          
+          .articles-grid {
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)) !important;
+          }
+          
+          .category-filter {
+            padding: 0 1rem !important;
+          }
+        }
+
+        /* Mobile */
+        @media (max-width: 480px) {
+          .articles-grid {
+            grid-template-columns: 1fr !important;
+          }
+          
+          .newsletter-form {
+            flex-direction: column;
+            gap: 0.5rem;
+          }
+          
+          .newsletter-form input,
+          .newsletter-form button {
+            border-radius: 10px !important;
+            width: 100%;
+          }
+        }
+
+        /* Hide scrollbar for category filter but keep functionality */
+        .category-filter::-webkit-scrollbar {
+          display: none;
+        }
+        .category-filter {
+          -ms-overflow-style: none;
+          scrollbar-width: none;
+        }
+      `}</style>
 
       {/* Hero */}
       <section
         style={{
           background: "linear-gradient(135deg, #1a56db 0%, #1e40af 100%)",
           color: "white",
-          padding: "clamp(60px, 12vw, 110px) 5vw 80px",
-          position: "relative",
-          overflow: "hidden",
+          padding: "clamp(60px, 12vw, 110px) 0 80px",
         }}
       >
-        <div style={{ maxWidth: 1180, margin: "0 auto", position: "relative", zIndex: 2 }}>
+        <div className="responsive-container" style={{ position: "relative", zIndex: 2 }}>
           <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 20, opacity: 0.9, fontWeight: 600 }}>
             <TrendingUp size={18} /> INSIGHTS
           </div>
@@ -259,7 +330,7 @@ export default function InsightsPage() {
                 padding: "14px 18px 14px 52px",
                 borderRadius: 10,
                 border: "none",
-                fontSize: 15,
+                fontSize: "clamp(14px, 2vw, 15px)",
                 background: "rgba(255,255,255,0.92)",
                 backdropFilter: "blur(8px)",
                 color: "#0f172a",
@@ -287,10 +358,12 @@ export default function InsightsPage() {
         }}
       >
         <div
+          ref={scrollContainerRef}
+          className="category-filter"
           style={{
-            maxWidth: 1180,
+            maxWidth: 1200,
             margin: "0 auto",
-            padding: "0 5vw",
+            padding: "0 clamp(1rem, 5vw, 2rem)",
             display: "flex",
             alignItems: "center",
             gap: 12,
@@ -302,6 +375,7 @@ export default function InsightsPage() {
           {categories.map((cat) => (
             <button
               key={cat}
+              ref={(el) => (categoryRefs.current[cat] = el)}
               onClick={() => setActiveCategory(cat)}
               style={{
                 padding: "13px 18px",
@@ -309,7 +383,7 @@ export default function InsightsPage() {
                 background: "transparent",
                 color: activeCategory === cat ? "#1d4ed8" : "#475569",
                 fontWeight: activeCategory === cat ? 700 : 500,
-                fontSize: 13.5,
+                fontSize: "clamp(12px, 2vw, 13.5px)",
                 whiteSpace: "nowrap",
                 cursor: "pointer",
                 position: "relative",
@@ -337,20 +411,20 @@ export default function InsightsPage() {
         </div>
       </section>
 
-      <main style={{ maxWidth: 1180, margin: "0 auto", padding: "clamp(40px, 6vw, 64px) 5vw" }}>
+      <main style={{ maxWidth: 1200, margin: "0 auto", padding: "clamp(40px, 6vw, 64px) clamp(1rem, 5vw, 2rem)" }}>
 
         {/* Featured */}
         <section style={{ marginBottom: "clamp(50px, 8vw, 80px)" }}>
-          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24, fontSize: 16, fontWeight: 700, color: "#1e40af" }}>
+          <div style={{ display: "flex", alignItems: "center", gap: 10, marginBottom: 24, fontSize: "clamp(14px, 2.5vw, 16px)", fontWeight: 700, color: "#1e40af" }}>
             <TrendingUp size={18} /> Featured Article
           </div>
 
           <div
-            className="featured-card"
+            className="featured-grid"
             style={{
               display: "grid",
               gridTemplateColumns: "1fr 1fr",
-              gap: 32,
+              gap: "clamp(24px, 4vw, 32px)",
               background: "#ffffff",
               borderRadius: 16,
               overflow: "hidden",
@@ -358,14 +432,16 @@ export default function InsightsPage() {
               transition: "transform 0.35s ease, box-shadow 0.35s ease",
             }}
           >
-            <CardImage src={featuredArticle.image} alt="Featured" height="100%" />
+            <div className="featured-image" style={{ height: "100%", minHeight: 300 }}>
+              <CardImage src={featuredArticle.image} alt="Featured" height="100%" />
+            </div>
 
-            <div style={{ padding: "clamp(28px, 4vw, 44px) 32px", display: "flex", flexDirection: "column", justifyContent: "center" }}>
+            <div style={{ padding: "clamp(28px, 4vw, 44px) clamp(24px, 4vw, 32px)", display: "flex", flexDirection: "column", justifyContent: "center" }}>
               <CategoryBadge category={featuredArticle.category} />
               <h2 style={{ fontSize: "clamp(20px, 3.5vw, 26px)", fontWeight: 700, lineHeight: 1.3, margin: "16px 0 16px", color: "#0f172a" }}>
                 {featuredArticle.title}
               </h2>
-              <p style={{ fontSize: 14.5, lineHeight: 1.75, color: "#475569", marginBottom: 24 }}>
+              <p style={{ fontSize: "clamp(13px, 2vw, 14.5px)", lineHeight: 1.75, color: "#475569", marginBottom: 24 }}>
                 {featuredArticle.description}
               </p>
               <ArticleMeta {...featuredArticle} />
@@ -378,12 +454,13 @@ export default function InsightsPage() {
                   borderRadius: 8,
                   padding: "12px 26px",
                   fontWeight: 600,
-                  fontSize: 14,
+                  fontSize: "clamp(13px, 2vw, 14px)",
                   cursor: "pointer",
                   display: "inline-flex",
                   alignItems: "center",
                   gap: 8,
                   transition: "all 0.28s ease",
+                  width: "fit-content",
                 }}
                 onMouseEnter={(e) => {
                   e.currentTarget.style.background = "#1e40af";
@@ -407,14 +484,15 @@ export default function InsightsPage() {
           </h2>
 
           {filteredArticles.length === 0 ? (
-            <div style={{ textAlign: "center", padding: "80px 20px", color: "#94a3b8", fontSize: 16 }}>
+            <div style={{ textAlign: "center", padding: "80px 20px", color: "#94a3b8", fontSize: "clamp(14px, 2.5vw, 16px)" }}>
               No articles found. Try adjusting your search or category.
             </div>
           ) : (
             <div
+              className="articles-grid"
               style={{
                 display: "grid",
-                gridTemplateColumns: "repeat(auto-fill, minmax(300px, 1fr))",
+                gridTemplateColumns: "repeat(auto-fill, minmax(280px, 1fr))",
                 gap: "clamp(20px, 3vw, 28px)",
               }}
             >
@@ -434,14 +512,14 @@ export default function InsightsPage() {
                     height: "100%",
                   }}
                 >
-                  <CardImage src={article.image} alt={article.title} />
+                  <CardImage src={article.image} alt={article.title} height={180} />
 
                   <div style={{ padding: "20px 22px 28px", display: "flex", flexDirection: "column", flex: 1 }}>
                     <CategoryBadge category={article.category} />
-                    <h3 style={{ fontSize: 16, fontWeight: 700, lineHeight: 1.4, margin: "14px 0 12px", color: "#0f172a" }}>
+                    <h3 style={{ fontSize: "clamp(15px, 2.5vw, 16px)", fontWeight: 700, lineHeight: 1.4, margin: "14px 0 12px", color: "#0f172a" }}>
                       {article.title}
                     </h3>
-                    <p style={{ fontSize: 13.5, lineHeight: 1.65, color: "#475569", marginBottom: 20, flex: 1 }}>
+                    <p style={{ fontSize: "clamp(12px, 2vw, 13.5px)", lineHeight: 1.65, color: "#475569", marginBottom: 20, flex: 1 }}>
                       {article.description}
                     </p>
                     <ArticleMeta {...article} />
@@ -454,7 +532,7 @@ export default function InsightsPage() {
                         borderRadius: 8,
                         padding: "10px 20px",
                         fontWeight: 600,
-                        fontSize: 13.5,
+                        fontSize: "clamp(12px, 2vw, 13.5px)",
                         cursor: "pointer",
                         display: "inline-flex",
                         alignItems: "center",
@@ -490,7 +568,7 @@ export default function InsightsPage() {
                 borderRadius: 8,
                 padding: "14px 36px",
                 fontWeight: 600,
-                fontSize: 15,
+                fontSize: "clamp(14px, 2.5vw, 15px)",
                 cursor: "pointer",
                 transition: "all 0.3s ease",
                 boxShadow: "0 4px 16px rgba(29,78,216,0.25)",
@@ -515,11 +593,11 @@ export default function InsightsPage() {
         style={{
           background: "linear-gradient(135deg, #1a56db 0%, #1e40af 100%)",
           color: "white",
-          padding: "clamp(70px, 12vw, 110px) 5vw",
+          padding: "clamp(70px, 12vw, 110px) 0",
           textAlign: "center",
         }}
       >
-        <div style={{ maxWidth: 700, margin: "0 auto" }}>
+        <div className="responsive-container" style={{ maxWidth: 700 }}>
           <h2 style={{ fontSize: "clamp(24px, 5vw, 30px)", fontWeight: 700, marginBottom: 16 }}>
             Stay Updated with Our Newsletter
           </h2>
@@ -527,7 +605,7 @@ export default function InsightsPage() {
             Get the latest insights, trends and expert analysis delivered straight to your inbox.
           </p>
 
-          <form style={{ display: "flex", maxWidth: 520, margin: "0 auto", gap: 0 }}>
+          <form className="newsletter-form" style={{ display: "flex", maxWidth: 520, margin: "0 auto", gap: 0 }}>
             <input
               type="email"
               placeholder="your.email@company.com"
@@ -536,7 +614,7 @@ export default function InsightsPage() {
                 padding: "14px 20px",
                 border: "none",
                 borderRadius: "10px 0 0 10px",
-                fontSize: 15,
+                fontSize: "clamp(14px, 2.5vw, 15px)",
                 outline: "none",
                 background: "rgba(255,255,255,0.95)",
               }}
@@ -550,7 +628,7 @@ export default function InsightsPage() {
                 borderRadius: "0 10px 10px 0",
                 padding: "0 32px",
                 fontWeight: 600,
-                fontSize: 15,
+                fontSize: "clamp(14px, 2.5vw, 15px)",
                 cursor: "pointer",
                 transition: "background 0.25s ease",
               }}
@@ -561,15 +639,15 @@ export default function InsightsPage() {
             </button>
           </form>
 
-          <p style={{ fontSize: 13, opacity: 0.65, marginTop: 16 }}>
+          <p style={{ fontSize: "clamp(12px, 2vw, 13px)", opacity: 0.65, marginTop: 16 }}>
             Join 10,000+ professionals • Unsubscribe anytime
           </p>
         </div>
       </section>
 
-      {/* Quick CSS for hover animations */}
+      {/* Hover animations */}
       <style jsx global>{`
-        .featured-card:hover {
+        .featured-grid:hover {
           transform: translateY(-8px);
           box-shadow: 0 20px 50px rgba(0,0,0,0.14) !important;
         }
@@ -582,22 +660,6 @@ export default function InsightsPage() {
 
         .article-card:hover .card-image {
           transform: scale(1.06);
-        }
-
-        @media (max-width: 840px) {
-          .featured-card {
-            grid-template-columns: 1fr !important;
-          }
-          .featured-card > div:first-child {
-            height: 240px !important;
-          }
-        }
-
-        @media (max-width: 560px) {
-          section > div {
-            padding-left: 5vw !important;
-            padding-right: 5vw !important;
-          }
         }
       `}</style>
     </div>
