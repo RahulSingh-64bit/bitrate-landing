@@ -51,7 +51,7 @@ export default function Hero() {
         <div className="mt-20 flex justify-center">
           <div className="relative max-w-4xl w-full">
             <Image
-              src="/images/hero-image.png"   
+              src="/images/hero-image1.png"   
               alt="bitrade Hero"
               width={1200}
               height={620}
